@@ -3,7 +3,6 @@
 
 package main.java;
 
-import main.java.intefaces.HistoryManager;
 import main.java.intefaces.TaskManager;
 import main.java.service.*;
 import main.java.tasks.*;
@@ -15,10 +14,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Managers managers = new Managers();
-
         TaskManager inMemoryTaskManager;
-        inMemoryTaskManager = managers.getDefault();
+        inMemoryTaskManager = Managers.getDefault();
 
 
         Task task1 = new Task("Переезд", "Собрать коробки", Status.NEW);
