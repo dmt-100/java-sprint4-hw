@@ -1,6 +1,5 @@
 package main.java.service;
 
-import main.java.intefaces.HistoryManager;
 import main.java.intefaces.TaskManager;
 import main.java.tasks.Epic;
 import main.java.tasks.Subtask;
@@ -128,7 +127,7 @@ public class InMemoryTaskManager implements TaskManager {
     // case 4:get методы-------------------------------------------------------------
     public Task getTaskById(int idInput) {
         Task task = null;
-        Managers.getDefaultHistory().checkList();
+        Managers.getDefaultHistory().checkList(); // проверка на количество задач в списке хистори
         if (tasks.get(idInput) != null) { // проверка на null
             Managers.getDefaultHistory().getHistory().add(tasks.get(idInput)); // ТЗ-4 добавляем в лист просмотренную
             // задачу
@@ -349,7 +348,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public LinkedList<Task> historyList() {
-        LinkedList<Task> list = null;
+        LinkedList<Task> list = new LinkedList<>();
         for (Task task : Managers.getDefaultHistory().getHistory()) {
             list.add(task);
         }

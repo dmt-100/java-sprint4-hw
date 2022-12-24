@@ -80,7 +80,6 @@ public class Main {
                             System.out.println(inMemoryTaskManager.getSubtasks());
                             break;
                     }
-
                     break;
 
                 case 3: // Удаление всех задач

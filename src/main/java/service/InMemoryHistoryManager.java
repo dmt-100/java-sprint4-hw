@@ -3,7 +3,6 @@ package main.java.service;
 import main.java.intefaces.HistoryManager;
 import main.java.tasks.Task;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
