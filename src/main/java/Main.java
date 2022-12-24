@@ -3,6 +3,7 @@
 
 package main.java;
 
+import main.java.intefaces.HistoryManager;
 import main.java.intefaces.TaskManager;
 import main.java.service.*;
 import main.java.tasks.*;
@@ -187,11 +188,9 @@ public class Main {
                 case 9: // Информация по просмотрам.
                     System.out.println("Какие задачи были просмотрены:");
                     System.out.println(inMemoryTaskManager.historyList());
-                    System.out.println("Сколько раз задачи были просмотрены:");
-                    System.out.println(inMemoryTaskManager.taskCounter());
                     break;
 
-                case 123: // Выход
+                case 0: // Выход
                     menu = false;
                     break;
             }
@@ -209,7 +208,7 @@ public class Main {
         System.out.println("8 - Получение списка всех подзадач определённого эпика");
         System.out.println("9 - Информация по просмотрам");
 
-        System.out.println("123 - Выход");
+        System.out.println("0 - Выход");
     }
 
     public static void printMenuCase1() {

@@ -6,8 +6,7 @@ import main.java.tasks.Subtask;
 import main.java.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.List;
 
 public interface TaskManager {
     void addTask(Task task);
@@ -62,8 +61,6 @@ public interface TaskManager {
     // метод обновления статуса епика
     void updateEpicStatus(int epicId);
 
-    HashMap<String, Integer> taskCounter();
-
-    LinkedList<Task> historyList();
+    List<Task> historyList();
 
 }

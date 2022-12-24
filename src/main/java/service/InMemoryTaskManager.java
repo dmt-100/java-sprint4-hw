@@ -1,5 +1,6 @@
 package main.java.service;
 
+import main.java.intefaces.HistoryManager;
 import main.java.intefaces.TaskManager;
 import main.java.tasks.Epic;
 import main.java.tasks.Subtask;
@@ -12,11 +13,12 @@ import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
 
-
     IdCounter idCounter = new IdCounter();
     private HashMap<Integer, Task> tasks = new HashMap<>();
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private HashMap<Integer, Subtask> subtasks = new HashMap<>();
+
+    private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public void addTask(Task task) {
@@ -127,10 +129,8 @@ public class InMemoryTaskManager implements TaskManager {
     // case 4:get методы-------------------------------------------------------------
     public Task getTaskById(int idInput) {
         Task task = null;
-        Managers.getDefaultHistory().checkList(); // проверка на количество задач в списке хистори
         if (tasks.get(idInput) != null) { // проверка на null
-            Managers.getDefaultHistory().getHistory().add(tasks.get(idInput)); // ТЗ-4 добавляем в лист просмотренную
-            // задачу
+            historyManager.add(tasks.get(idInput)); // ТЗ-4 добавляем в лист просмотренную задачу
             task = tasks.get(idInput);
         }
         return task;
@@ -138,9 +138,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     public Epic getEpicById(int idInput) {
         Epic epic = null;
-        Managers.getDefaultHistory().checkList();
         if (epics.get(idInput) != null) { // проверка на null
-            Managers.getDefaultHistory().getHistory().add(epics.get(idInput)); // ТЗ-4 добавляем в лист просмотренную задачу
+            historyManager.add(epics.get(idInput)); // ТЗ-4 добавляем в лист просмотренную задачу
             epic = epics.get(idInput);
         }
         return epic;
@@ -148,9 +147,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     public Subtask getSubtaskById(int idInput) {
         Subtask subtask = null;
-        Managers.getDefaultHistory().checkList();
         if (subtasks.get(idInput) != null) { // проверка на null
-            Managers.getDefaultHistory().getHistory().add(subtasks.get(idInput)); // ТЗ-4 добавляем в лист
+            historyManager.add(subtasks.get(idInput)); // ТЗ-4 добавляем в лист просмотренную задачу
             // просмотренную задачу
             subtask = subtasks.get(idInput);
         }
@@ -323,33 +321,10 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     // ТЗ-4
-    // case 9: // Информация по количеству просмотрам.
-    public HashMap<String, Integer> taskCounter() {
-        HashMap<String, Integer> counter = new HashMap<>();
-        int taskCounter = 0;
-        int epicCounter = 0;
-        int subtaskCounter = 0;
-        for (Task task : Managers.getDefaultHistory().getHistory()) {
-            if (task.getClass().getName().equals("main.java.tasks.Task")) {
-                taskCounter++;
-            }
-            if (task.getClass().getName().equals("main.java.tasks.Epic")) {
-                epicCounter++;
-            }
-            if (task.getClass().getName().equals("main.java.tasks.Subtask")) {
-                subtaskCounter++;
-            }
-        }
-        counter.put("Task", taskCounter);
-        counter.put("Epic", epicCounter);
-        counter.put("Subtask", subtaskCounter);
-
-        return counter;
-    }
-
-    public LinkedList<Task> historyList() {
-        LinkedList<Task> list = new LinkedList<>();
-        for (Task task : Managers.getDefaultHistory().getHistory()) {
+    // case 9:
+    public List<Task> historyList() {
+        List<Task> list = new LinkedList<>();
+        for (Task task : historyManager.getHistory()) {
             list.add(task);
         }
         return list;
